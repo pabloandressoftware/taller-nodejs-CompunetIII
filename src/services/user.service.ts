@@ -1,52 +1,66 @@
 import { UserDocument, UserModel, UserInput } from '../models/user.model';
 
-class UserService{
+class UserService {
 
-    async createUser(userData: UserDocument){
+    async createUser(userData: UserDocument) {
         try {
             const existUser: UserDocument | null = await this.findByEmail(userData.email);
-            if(existUser) return { message: `User already exists with ${userData.email}` };
+            if (existUser) return { message: `User already exists with ${userData.email}` };
 
             const createdUser = await UserModel.create(userData);
             return createdUser;
-        }catch (error) {
+
+            //validar, va ser predeterminado usuario normal
+
+        } catch (error) {
             throw new Error('Error creating user');
         }
     }
 
     async findAllUsers(): Promise<UserDocument[]> {
         try {
-            const users : UserDocument[] = await UserModel.find();
-            return users;            
+            const users: UserDocument[] = await UserModel.find();
+            return users;
         } catch (error) {
-            throw new Error('Error fetching users');    
+            throw new Error('Error fetching users');
         }
     }
 
-    async findByEmail(email: string){
+    async findByEmail(email: string) {
         try {
-            const users = await UserModel.findOne({ email});
+            const users = await UserModel.findOne({ email });
             return users;
         } catch (error) {
             throw new Error('Error fetching student by email');
         }
     }
 
-    async updateUser(userId: string, userData: UserInput): Promise<UserDocument | null> {
+    async updateUser(email: string, userData: UserInput){
         try {
-            const updatedUser: UserDocument | null = await UserModel.findByIdAndUpdate(userId, userData, { new: true });
+            const updatedUser: UserDocument | null = await UserModel.findOneAndUpdate({ email }, userData, { new: true });
+            if (updatedUser) {
+                updatedUser.password = '';
+            }
             return updatedUser;
         } catch (error) {
             throw new Error('Error updating user');
         }
     }
 
-    async deleteUser(userId: string): Promise<boolean> {
+    async deleteUserByEmail(email: string): Promise<boolean> {
         try {
-            await UserModel.findByIdAndDelete(userId);
-            return true;
+            const deletedUser = await UserModel.findOneAndDelete({ email });
+            return deletedUser !== null;
         } catch (error) {
-            throw new Error('Error deleting user');
+            throw new Error('Error deleting user by email');
+        }
+    }
+    async userProfile(email: string) {
+        try {
+            const user: UserDocument | null = await UserModel.findOne({ email }).select('-password');
+            return user;
+        } catch (error) {
+            throw new Error('Error fetching user profile');
         }
     }
 
