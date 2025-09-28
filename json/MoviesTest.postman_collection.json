@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "5c3b3cd2-1f64-42d0-ab0b-d9ef063f968d",
+		"name": "MoviesTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48854536"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/v1/user/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Juan Pérez\",\r\n  \"email\": \"juan@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/user/login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"juan@ejemplo.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/search/title?title=avengers",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/search/title?title=avengers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						"search",
+						"title"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "avengers"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/search/genre?genre=accion",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/search/genre?genre=accion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						"search",
+						"genre"
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "accion"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame\",\r\n  \"description\": \"Los Vengadores se reúnen para la batalla final contra Thanos\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Acción\",\r\n  \"reviews\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/my/movies",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/my/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						"my",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/68d96b651fdfb324bf02141d",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/68d96b651fdfb324bf02141d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						"68d96b651fdfb324bf02141d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/68d96b651fdfb324bf02141d",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame - Edición Especial\",\r\n  \"description\": \"Los Vengadores se reúnen para la batalla final contra Thanos - Versión extendida\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/68d96b651fdfb324bf02141d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						"68d96b651fdfb324bf02141d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/playlist/68d96b651fdfb324bf02141d",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/playlist/68d96b651fdfb324bf02141d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"playlist",
+						"68d96b651fdfb324bf02141d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

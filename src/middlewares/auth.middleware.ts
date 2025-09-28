@@ -9,11 +9,20 @@ export const auth = async(req: Request, res: Response, next: NextFunction) => {
             return res.status(401).json({message: "No token provided"})
         }
         token = token.replace("Bearer ","");
-        const decoded = jwt.verify(token, 'secret')
+        const decoded = jwt.verify(token, 'secret') as any;
+        
+        // Debug: mostrar qué contiene el token
+        console.log("🔍 Decoded token:", decoded);
+        
+        // Inicializar req.body si no existe
+        if (!req.body) {
+            req.body = {};
+        }
         req.body.user = decoded;
         next();
     }catch (error) {
-        res.status(403).json(error);
+        console.error("❌ Auth middleware error:", error);
+        res.status(403).json({message: "Invalid token"});
     }
 }
 

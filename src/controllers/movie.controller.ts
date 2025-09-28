@@ -70,7 +70,10 @@ class MovieController {
     // Obtener películas del usuario autenticado
     async getMyMovies(req: Request, res: Response) {
         try {
+            console.log("🔍 req.body.user:", req.body.user);
             const userId = req.body.user?._id;
+            console.log("🔍 userId:", userId);
+            
             if (!userId) {
                 return res.status(401).json({ message: 'User not authenticated' });
             }
