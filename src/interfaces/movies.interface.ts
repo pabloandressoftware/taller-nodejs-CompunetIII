@@ -4,8 +4,8 @@ export interface MoviesInput{
     director: string;
     releaseDate: Date;
     genre: string;
-    reviews?: string[]; //es opcional o obligatorioi
-
+    userId: string; // ID del usuario que subió la película
+    reviews?: string[]; // Array de IDs de reseñas
 }
 
 export interface MoviesInputUpdate{
@@ -14,6 +14,7 @@ export interface MoviesInputUpdate{
     director?: string;
     releaseDate?: Date;
     genre?: string;
+    userId?: string;
     reviews?: string[];
 }
 

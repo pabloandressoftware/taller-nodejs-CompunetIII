@@ -2,7 +2,7 @@ import { UserDocument, UserModel, UserInput } from '../models/user.model';
 
 class UserService {
 
-    async createUser(userData: UserDocument) {
+    async createUser(userData: UserInput) {
         try {
             const existUser: UserDocument | null = await this.findByEmail(userData.email);
             if (existUser) return { message: `User already exists with ${userData.email}` };
@@ -10,9 +10,8 @@ class UserService {
             const createdUser = await UserModel.create(userData);
             return createdUser;
 
-            //validar, va ser predeterminado usuario normal
-
         } catch (error) {
+            console.error('Error in createUser service:', error);
             throw new Error('Error creating user');
         }
     }

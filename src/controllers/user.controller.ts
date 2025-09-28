@@ -40,19 +40,19 @@ class UserController {
     async login(req: Request, res: Response) {
         try {
             const existingUser: UserDocument | null = await userService.findByEmail(req.body.email);
-            const currentPassword = existingUser?.password;
             if (!existingUser) {
                 return res.status(404).json({ message: `User ${req.body.email} doesn't exist` });
             }
-            if (!currentPassword) {
-               const isMatch = await securityService.comparePassword(req.body.password, existingUser.password);
-                if (!isMatch) {
-                    return res.status(400).json({ message: 'Invalid credentials' });
-                } 
-                const token = await securityService.generateToken(existingUser.id, existingUser.email, existingUser.role);
-                return res.status(200).json({ message: "Login successful", token });
+            
+            const isMatch = await securityService.comparePassword(req.body.password, existingUser.password);
+            if (!isMatch) {
+                return res.status(400).json({ message: 'Invalid credentials' });
             }
+            
+            const token = await securityService.generateToken(existingUser.id, existingUser.email, existingUser.role);
+            return res.status(200).json({ message: "Login successful", token });
         } catch (error) {
+            console.error('Error in login controller:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
