@@ -2,15 +2,15 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./src/lib/db";
 import { reviewRouter } from "./src/routes/review.routes";
-import { playlistRouter } from "./src/routes/playlist.routes";
+import { playlistRouter } from "./src/routes/movie.routes";
 import { userRouter } from "./src/routes/user.routes";
 
 // Cargar variables de entorno
 dotenv.config();
 
 // Verificar que las variables de entorno se cargaron correctamente
-console.log("🔧 Environment variables loaded:");
-console.log("DATABASE_URL:", process.env.DATABASE_URL ? "✅ Loaded" : "❌ Not found");
+console.log("Environment variables loaded:");
+console.log("DATABASE_URL:", process.env.DATABASE_URL ? " Loaded" : " Not found");
 console.log("PORT:", process.env.PORT || "8080 (default)");
 
 const app: Express = express();
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
 
 // Rutas
-app.use('/api/v1/playlist', playlistRouter);
+app.use('/api/v1/movies', playlistRouter);
 app.use('/api/v1/review', reviewRouter);
 app.use('/api/v1/user', userRouter);
 
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
         message: 'API de Películas funcionando',
         version: '1.0.0',
         endpoints: {
-            movies: '/api/v1/playlist',
+            movies: '/api/v1/movies',
             reviews: '/api/v1/review',
             users: '/api/v1/user'
         }
@@ -44,11 +44,11 @@ const startServer = async () => {
     try {
         await connectDB();
         app.listen(port, () => {
-            console.log(`🚀 Server running on port: ${port}`);
-            console.log(`📱 API available at: http://localhost:${port}`);
+            console.log(` Server running on port: ${port}`);
+            console.log(` API available at: http://localhost:${port}`);
         });
     } catch (error) {
-        console.error('❌ Error starting server:', error);
+        console.error(' Error starting server:', error);
         process.exit(1);
     }
 };

@@ -8,7 +8,7 @@ export const userRouter = Router();
 userRouter.get('/', auth, authorizeRoles(['admin']), userController.getAllUsers);
 
 // Ruta para crear un nuevo usuario
-userRouter.post('/', userController.createUser); // El taller dice que solo los superadmin pueden crear usuarios
+userRouter.post('/',auth, authorizeRoles(['admin']),userController.createUser); // El taller dice que solo los superadmin pueden crear usuarios
 // pero no deberia tambien crear un usario normal?
 
 // Ruta para login
