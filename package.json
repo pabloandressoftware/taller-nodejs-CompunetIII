@@ -4,12 +4,19 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "tsc && bun run dist/index.js"
+    "dev": "tsc && bun run dist/index.js",
+    "test": "bun jest",
+    "test:watch": "bun jest --watch", 
+    "test:coverage": "bun jest --coverage"
   },
   "devDependencies": {
+    "@jest/globals": "^30.2.0",
     "@types/bun": "latest",
     "@types/express": "^5.0.3",
-    "@types/node": "^24.5.2"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.5.2",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.4"
   },
   "peerDependencies": {
     "typescript": "^5"

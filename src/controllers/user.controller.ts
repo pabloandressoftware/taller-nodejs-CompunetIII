@@ -103,6 +103,7 @@ class UserController {
             if (!user) {
                 return res.status(404).json({ message: `User with email ${email} not found` });
             }
+            user.password = ''; // Omitir la contraseña en la respuesta
             return res.status(200).json(user);
         } catch (error) {
             console.error('Error in getUserProfile controller:', error);
