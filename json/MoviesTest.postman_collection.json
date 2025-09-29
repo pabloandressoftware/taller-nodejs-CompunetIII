@@ -8,6 +8,21 @@
 	"item": [
 		{
 			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.environment.set(\"token\", response.token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -22,7 +37,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"usuario1@ejemplo.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"raw": "{\r\n  \"email\": \"admin@ejemplo.com\",\r\n  \"password\": \"123456\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -197,6 +212,21 @@
 		},
 		{
 			"name": "Create Movie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.environment.set(\"movie_id\", response.movie._id);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -208,7 +238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Avengers: Endgame\",\r\n  \"description\": \"Los Vengadores se reúnen para la batalla final\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Acción\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame\",\r\n  \"description\": \"The Avengers gather for the final battle\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Action\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -261,7 +291,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/search/title?title=avengers",
+					"raw": "http://localhost:8080/api/v1/movies/search/title?title=Avengers",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -277,7 +307,7 @@
 					"query": [
 						{
 							"key": "title",
-							"value": "avengers"
+							"value": "Avengers"
 						}
 					]
 				}
@@ -293,7 +323,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/search/genre?genre=accion",
+					"raw": "http://localhost:8080/api/v1/movies/search/genre?genre=Action",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -309,7 +339,7 @@
 					"query": [
 						{
 							"key": "genre",
-							"value": "accion"
+							"value": "Action"
 						}
 					]
 				}
@@ -329,7 +359,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Avengers: Endgame - Versión Extendida\",\r\n  \"description\": \"Versión extendida con escenas adicionales y material extra\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Acción\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame - Extended Version\",\r\n  \"description\": \"Extended version with additional scenes and extra material\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Action\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
