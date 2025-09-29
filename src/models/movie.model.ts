@@ -10,8 +10,15 @@ const movieSchema = new mongoose.Schema({
     director: { type: String, required: true },
     releaseDate: { type: Date, required: true },
     genre: { type: String, required: true },
-    userId: { type: String, required: true }, // ID del usuario que subió la película
-    reviews: [{ type: String }] // Array de IDs de reseñas
+    userId: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        required: true 
+    }, // ID del usuario que subió la película
+    reviews: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Review' 
+    }] // Array de IDs de reseñas
 }, {
     timestamps: true // Agrega createdAt y updatedAt automáticamente
 });

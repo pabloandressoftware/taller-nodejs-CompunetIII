@@ -4,8 +4,16 @@ import { ReviewsInput } from "../interfaces";
 export interface ReviewDocument extends ReviewsInput, mongoose.Document { }
 
 const reviewSchema = new mongoose.Schema({
-  movieId: { type: String, required: true },
-  userId: { type: String, required: true },
+  movieId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Movie',
+    required: true 
+  },
+  userId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User',
+    required: true 
+  },
   rating: { type: Number, required: true },
   comment: { type: String, required: true }
 }, {

@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { ReviewsInput } from '../models/review.model';
 import { reviewService } from "../services/review.service";
+import { movieService } from "../services/movie.service";
 
 class ReviewController {
+
   async create(req: Request, res: Response) {
     try {
 
@@ -18,7 +20,17 @@ class ReviewController {
         userId: userId // Obtener el ID del usuario autenticado
       };
 
+      // 1. Crear la reseña
       const review = await reviewService.createReview(reviewData);
+
+      // 2. Agregar la reseña a la película
+      if (review && (review as any).movieId) {
+        await movieService.addReviewToMovie(
+          (review as any).movieId.toString(),
+          (review as any)._id.toString()
+        );
+      }
+
       res.status(201).json({
         message: 'Review created successfully',
         review
@@ -27,6 +39,23 @@ class ReviewController {
     } catch (error) {
 
       console.error('Error in createReview controller:', error);
+      
+      // Manejar errores de validación específicos
+      if (error instanceof Error) {
+        if (error.message.includes('Movie with id') && error.message.includes('not found')) {
+          return res.status(404).json({ 
+            error: 'Movie not found',
+            message: error.message 
+          });
+        }
+        if (error.message.includes('User with id') && error.message.includes('not found')) {
+          return res.status(404).json({ 
+            error: 'User not found',
+            message: error.message 
+          });
+        }
+      }
+      
       res.status(500).json({ error: 'Internal Server Error' });
 
     }

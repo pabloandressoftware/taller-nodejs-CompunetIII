@@ -1,10 +1,23 @@
 import { ReviewsInput } from "../interfaces";
 import { ReviewDocument, ReviewModel } from "../models/review.model";
+import { MovieModel } from "../models/movie.model";
+import { UserModel } from "../models/user.model";
 
 class ReviewService {
   // Crear una nueva pelicula
   async createReview(reviewData: ReviewsInput): Promise<ReviewDocument> {
     try {
+      // Validar que la película existe
+      const movieExists = await MovieModel.findById(reviewData.movieId);
+      if (!movieExists) {
+        throw new Error(`Movie with id ${reviewData.movieId} not found`);
+      }
+
+      // Validar que el usuario existe
+      const userExists = await UserModel.findById(reviewData.userId);
+      if (!userExists) {
+        throw new Error(`User with id ${reviewData.userId} not found`);
+      }
 
       const createReview = await ReviewModel.create(reviewData);
       return createReview;
