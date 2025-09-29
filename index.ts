@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./src/lib/db";
 import { reviewRouter } from "./src/routes/review.routes";
-import { playlistRouter } from "./src/routes/movie.routes";
+import { movieRouter } from "./src/routes/movie.routes";
 import { userRouter } from "./src/routes/user.routes";
 
 // Cargar variables de entorno
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
 
 // Rutas
-app.use('/api/v1/movies', playlistRouter);
+app.use('/api/v1/movies', movieRouter);
 app.use('/api/v1/review', reviewRouter);
 app.use('/api/v1/user', userRouter);
 
