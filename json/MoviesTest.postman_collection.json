@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "5c3b3cd2-1f64-42d0-ab0b-d9ef063f968d",
+		"_postman_id": "abfa5841-cf3f-4e99-bc2d-22a0a83203c3",
 		"name": "MoviesTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "48854536"
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/api/v1/user/",
+			"name": "Login User",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -22,7 +22,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Juan Pérez\",\r\n  \"email\": \"juan@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}",
+					"raw": "{\r\n  \"email\": \"usuario1@ejemplo.com\",\r\n  \"password\": \"123456\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,52 +30,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/user/",
-					"protocol": "http",
+					"raw": "{{base_url}}/api/v1/user/login",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"user",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/v1/user/login",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"juan@ejemplo.com\",\r\n  \"password\": \"123456\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/user/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -87,7 +45,192 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/api/v1/movies/",
+			"name": "Create User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5YzU0ZTViYmUyOTM1NTE4MWZkYTYiLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MTA0NTY5LCJleHAiOjE3NTkxMDgxNjl9.mchCEkP54Dr33ZZwGRfHWRAjTdr_K2B2OcRjVE1rqdU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Usuario para Delete 2\",\r\n  \"email\": \"usuarioDelete2@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5YzU0ZTViYmUyOTM1NTE4MWZkYTYiLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MTAyMzExLCJleHAiOjE3NTkxMDU5MTF9.PE286PdwPzsNu5yHuB1SVJ25P6m6ekr4gZCeueP2kgs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"Delete changed 1\",\r\n  \"email\": \"usuarioDelete1@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{correo}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{correo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{correo_profile}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{correo_profile}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5YzU0ZTViYmUyOTM1NTE4MWZkYTYiLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MTA0NTY5LCJleHAiOjE3NTkxMDgxNjl9.mchCEkP54Dr33ZZwGRfHWRAjTdr_K2B2OcRjVE1rqdU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{correo_delete}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{correo_delete}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Movie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame\",\r\n  \"description\": \"Los Vengadores se reúnen para la batalla final\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Acción\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/movies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Movies",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -95,12 +238,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/",
-					"protocol": "http",
+					"raw": "{{base_url}}/api/v1/movies/",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -112,7 +253,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/api/v1/movies/search/title?title=avengers",
+			"name": "Search Movie by Name",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -144,7 +285,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/api/v1/movies/search/genre?genre=accion",
+			"name": "Search Movie by Genre",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -176,129 +317,19 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/api/v1/movies/",
+			"name": "Update Movie",
 			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Avengers: Endgame\",\r\n  \"description\": \"Los Vengadores se reúnen para la batalla final contra Thanos\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Acción\",\r\n  \"reviews\": []\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"movies",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/v1/movies/my/movies",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/my/movies",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"movies",
-						"my",
-						"movies"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/v1/movies/68d96b651fdfb324bf02141d",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/68d96b651fdfb324bf02141d",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"movies",
-						"68d96b651fdfb324bf02141d"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/v1/movies/68d96b651fdfb324bf02141d",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
+						"value": "Bearer {{token}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Avengers: Endgame - Edición Especial\",\r\n  \"description\": \"Los Vengadores se reúnen para la batalla final contra Thanos - Versión extendida\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame - Versión Extendida\",\r\n  \"description\": \"Versión extendida con escenas adicionales y material extra\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Acción\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -306,48 +337,41 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/68d96b651fdfb324bf02141d",
-					"protocol": "http",
+					"raw": "{{base_url}}/api/v1/movies/{{movie_id}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
 						"movies",
-						"68d96b651fdfb324bf02141d"
+						"{{movie_id}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/api/v1/movies/68d96b651fdfb324bf02141d",
+			"name": "Delete Movie",
 			"request": {
-				"auth": {
-					"type": "noauth"
-				},
 				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5NmE3NDFmZGZiMzI0YmYwMjE0MTciLCJlbWFpbCI6Imp1YW5AZWplbXBsby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1OTA3OTEwOSwiZXhwIjoxNzU5MDgyNzA5fQ.MS_OuouTeVGpXe69gGkIfNk6KwvpC0ipthVPOoqbRVY",
+						"value": "Bearer {{token}}",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/68d96b651fdfb324bf02141d",
-					"protocol": "http",
+					"raw": "{{base_url}}/api/v1/movies/{{movie_id}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
 						"movies",
-						"68d96b651fdfb324bf02141d"
+						"{{movie_id}}"
 					]
 				}
 			},
