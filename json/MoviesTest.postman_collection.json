@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "abfa5841-cf3f-4e99-bc2d-22a0a83203c3",
+		"_postman_id": "206537c1-29e4-49cb-96a1-81c163c06ce2",
 		"name": "MoviesTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "48854536"
+		"_exporter_id": "48853190",
+		"_collection_link": "https://juanpapb0401-8817060.postman.co/workspace/Computacion-3's-Workspace~bfabf374-3f9b-4ee3-84af-d86d1c3a8464/collection/48853190-206537c1-29e4-49cb-96a1-81c163c06ce2?action=share&source=collection_link&creator=48853190"
 	},
 	"item": [
 		{
@@ -402,6 +403,77 @@
 						"v1",
 						"movies",
 						"{{movie_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Review",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"movieId\": \"68dadc351a70397d8038cab5\",\r\n    \"userId\": \"68d9c54e5bbe29355181fda6\",\r\n    \"rating\": 5,\r\n    \"comment\": \"Una de las mejores películas que he visto este año\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/review",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Reviews",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/review",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review"
 					]
 				}
 			},
