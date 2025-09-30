@@ -149,140 +149,152 @@ bun test:coverage
 
 ##  Endpoints de la API
 
-## **Autenticación de Usuarios**
+### **Flujo de Trabajo Completo**
 
-### **POST** `/users/register` - Registrar nuevo usuario
-- **Descripción:** Crea una nueva cuenta de usuario en el sistema
-- **Autenticación:** No requerida
-
-### **POST** `/users/login` - Iniciar sesión
-- **Descripción:** Autentica un usuario y devuelve un JWT token
-- **Autenticación:** No requerida
+A continuación se presenta el flujo completo de trabajo de la API con ejemplos prácticos de uso:
 
 ---
 
-## **Gestión de Usuarios**
+## **1. Autenticación y Gestión de Usuarios**
 
-### **GET** `/users/` - Obtener todos los usuarios
-- **Descripción:** Lista todos los usuarios registrados
-- **Autenticación:** Requerida
-- **Permisos:** Solo administradores
-- **Headers:** `Authorization: Bearer <token>`
+### **Login Admin** - `POST /api/v1/user/login`
+- **Propósito**: El administrador se autentica para obtener permisos completos
+- **Resultado**: Token JWT con role "admin"
 
-### **GET** `/users/profile/:email` - Obtener perfil de usuario
-- **Descripción:** Obtiene la información de un usuario específico por email
-- **Autenticación:** Requerida
-- **Permisos:** Solo el propietario del perfil o administrador
-- **Headers:** `Authorization: Bearer <token>`
+### **Create User** - `POST /api/v1/user/`
+- **Propósito**: Admin crea usuario que trabajará con reviews
+- **Permisos**: Solo admin puede crear usuarios
 
-### **PUT** `/users/:email` - Actualizar usuario
-- **Descripción:** Actualiza la información de un usuario
-- **Autenticación:** Requerida
-- **Permisos:** Solo el propietario del perfil o administrador
-- **Headers:** `Authorization: Bearer <token>`
+### **Create User Alternative** - `POST /api/v1/user/`
+- **Propósito**: Admin crea segundo usuario para verificar autorización
+- **Uso**: Demostrar que usuarios no pueden editar/eliminar reviews ajenas
 
-### **DELETE** `/users/:email` - Eliminar usuario
-- **Descripción:** Elimina un usuario del sistema
-- **Autenticación:** Requerida
-- **Permisos:** Solo administradores
-- **Headers:** `Authorization: Bearer <token>`
+### **Login User** - `POST /api/v1/user/login`
+- **Propósito**: Usuario principal obtiene su token JWT
+
+### **Login User Alternative** - `POST /api/v1/user/login`
+
+- **Propósito**: Usuario alternativo obtiene su token JWT
 
 ---
 
-## **Gestión de Películas**
+## **2. Gestión de Películas**
 
-### **POST** `/movies/` - Crear nueva película
-- **Descripción:** Crea una nueva película asociada al usuario autenticado
-- **Autenticación:** Requerida
-- **Permisos:** Cualquier usuario autenticado
-- **Headers:** `Authorization: Bearer <token>`
+### **Create Movie** - `POST /api/v1/movies/`
+- **Propósito**: Admin crea película de Avengers para las demos
+- **Token**: Admin token requerido
 
-### **GET** `/movies/` - Obtener todas las películas
-- **Descripción:** Lista todas las películas con información del usuario y reseñas
-- **Autenticación:** No requerida
-- **Permisos:** Público
+### **Get All Movies** - `GET /api/v1/movies/`
+- **Propósito**: Obtiene todas las películas disponibles
+- **Permisos**: Público (sin autenticación)
+- **Incluye**: Información del usuario creador y reseñas
 
-### **GET** `/movies/:id` - Obtener película por ID
-- **Descripción:** Obtiene una película específica con información completa
-- **Autenticación:** No requerida
-- **Permisos:** Público
+### **Search Movie by Name** - `GET /api/v1/movies/search/title?title=avengers`
+- **Propósito**: Busca películas por título (case-insensitive)
+- **Resultado**: Encuentra la película "Avengers" creada anteriormente
+- **Permisos**: Público
 
-### **GET** `/movies/my-movies` - Obtener mis películas
-- **Descripción:** Lista todas las películas creadas por el usuario autenticado
-- **Autenticación:** Requerida
-- **Permisos:** Usuario autenticado (sus propias películas)
-- **Headers:** `Authorization: Bearer <token>`
-
-### **GET** `/movies/search/title?title=inception` - Buscar por título
-- **Descripción:** Busca películas por título (case-insensitive)
-- **Autenticación:** No requerida
-- **Permisos:** Público
-- **Query Params:** `title` (string)
-
-### **GET** `/movies/search/genre?genre=action` - Buscar por género
-- **Descripción:** Busca películas por género (case-insensitive)
-- **Autenticación:** No requerida
-- **Permisos:** Público
-- **Query Params:** `genre` (string)
-
-### **PUT** `/movies/:id` - Actualizar película
-- **Descripción:** Actualiza una película existente
-- **Autenticación:** Requerida
-- **Permisos:** Solo el propietario de la película o administrador
-- **Headers:** `Authorization: Bearer <token>`
-- **Body:** Campos a actualizar (title, description, director, etc.)
-
-### **DELETE** `/movies/:id` - Eliminar película
-- **Descripción:** Elimina una película del sistema
-- **Autenticación:** Requerida
-- **Permisos:** Solo el propietario de la película o administrador
-- **Headers:** `Authorization: Bearer <token>`
-
-### **PUT** `/movies/:id/reviews` - Agregar reseña a película
-- **Descripción:** Asocia una reseña existente a una película
-- **Autenticación:** Requerida
-- **Permisos:** Usuario autenticado
-- **Headers:** `Authorization: Bearer <token>`
-
-### **DELETE** `/movies/:id/reviews` - Eliminar reseña de película
-- **Descripción:** Desasocia una reseña de una película
-- **Autenticación:** Requerida
-- **Permisos:** Propietario de la reseña o administrador
-- **Headers:** `Authorization: Bearer <token>`
+### **Search Movie by Genre** - `GET /api/v1/movies/search/genre?genre=action`
+- **Propósito**: Muestra todas las películas del género "Action"
+- **Resultado**: Lista todas las películas de acción incluyendo Avengers
+- **Permisos**: Público
 
 ---
 
-## **Gestión de Reseñas**
+## **3. Gestión de Reseñas**
 
-### **POST** `/reviews/` - Crear nueva reseña
-- **Descripción:** Crea una nueva reseña y la asocia automáticamente a la película
-- **Autenticación:** Requerida
-- **Permisos:** Usuario autenticado
-- **Headers:** `Authorization: Bearer <token>`
+### **Create Review** - `POST /api/v1/review/`
+- **Propósito**: Usuario crea reseña sobre Avengers
+- **Token**: Usuario token requerido
+- **Validación**: Verifica que la película existe
 
-### **GET** `/reviews/` - Obtener todas las reseñas
-- **Descripción:** Lista todas las reseñas con información del usuario y película
-- **Autenticación:** No requerida
-- **Permisos:** Público
+### **List Reviews** - `GET /api/v1/review/`
+- **Propósito**: Muestra todas las reseñas de Avengers y otras películas
+- **Permisos**: Requiere autenticación
+- **Incluye**: Información del usuario y película asociada
 
-### **GET** `/reviews/:id` - Obtener reseña por ID
-- **Descripción:** Obtiene una reseña específica con información completa
-- **Autenticación:** No requerida
-- **Permisos:** Público
+### **Get Review by ID** - `GET /api/v1/review/:id`
+- **Propósito**: Obtiene una reseña específica por su ID
+- **Permisos**: Requiere autenticación
+- **Incluye**: Detalles completos de la reseña
 
-### **PUT** `/reviews/:id` - Actualizar reseña
-- **Descripción:** Actualiza una reseña existente
-- **Autenticación:** Requerida
-- **Permisos:** Solo el propietario de la reseña o administrador
-- **Headers:** `Authorization: Bearer <token>`
-- **Body:** Campos a actualizar (rating, comment)
+---
 
-### **DELETE** `/reviews/:id` - Eliminar reseña
-- **Descripción:** Elimina una reseña del sistema
-- **Autenticación:** Requerida
-- **Permisos:** Solo el propietario de la reseña o administrador
-- **Headers:** `Authorization: Bearer <token>`
+## **4. Gestión de Perfiles**
 
+### **Get Profile** - `GET /api/v1/user/profile/:email`
+- **Propósito**: Obtiene el perfil del usuario
+- **Ejemplo**: `/api/v1/user/profile/usuarioDelete22@ejemplo.com`
+- **Permisos**: Propietario del perfil o admin
+
+---
+
+## **5. Operaciones de Actualización**
+
+### **Update User** - `PUT /api/v1/user/:email`
+- **Propósito**: Admin modifica información del usuario
+- **Token**: Admin token requerido
+
+### **Update Movie Admin** - `PUT /api/v1/movies/:id`
+- **Propósito**: Admin cambia título de la película
+- **Resultado**: Exitoso - Admin tiene permisos
+
+### **Update Movie User** - `PUT /api/v1/movies/:id`
+- **Propósito**: Usuario intenta cambiar título
+- **Resultado**: 403 Forbidden - Usuario no tiene permisos
+
+### **Update Review User** - `PUT /api/v1/review/:id`
+- **Propósito**: Usuario modifica su propia reseña
+- **Token**: Usuario propietario token
+- **Resultado**: Exitoso
+
+### **Update Review Admin** - `PUT /api/v1/review/:id`
+- **Propósito**: Admin modifica cualquier reseña
+- **Token**: Admin token
+- **Resultado**: Exitoso - Admin tiene permisos globales
+
+### **Update Review Alternative User** - `PUT /api/v1/review/:id`
+
+- **Propósito**: Usuario no autor intenta editar reseña
+- **Token**: Usuario alternativo token
+- **Resultado**: 403 Forbidden - No es propietario
+
+---
+
+## **6. Operaciones de Eliminación**
+
+### **Delete Review Alternative User** - `DELETE /api/v1/review/:id`
+- **Propósito**: Usuario intenta eliminar reseña ajena
+- **Token**: Usuario alternativo token
+- **Resultado**: 403 Forbidden - No es propietario
+
+### **Delete Review Admin** - `DELETE /api/v1/review/:id`
+- **Propósito**: Admin elimina una reseña
+- **Token**: Admin token
+- **Resultado**: Exitoso - Admin puede eliminar cualquier reseña
+
+### **Delete Review User** - `DELETE /api/v1/review/:id`
+- **Propósito**: Usuario intenta eliminar su reseña ya eliminada
+- **Token**: Usuario propietario token
+- **Resultado**: 404 Not Found - Reseña ya fue eliminada previamente
+
+### **Delete Movie User** - `DELETE /api/v1/movies/:id`
+- **Propósito**: Usuario intenta eliminar película
+- **Token**: Usuario token
+- **Resultado**: 403 Forbidden - Solo admin puede eliminar películas
+
+### **Delete Movie Admin** - `DELETE /api/v1/movies/:id`
+- **Propósito**: Admin elimina la película
+- **Token**: Admin token
+- **Resultado**: Exitoso - Película eliminada
+
+### **Delete User** - `DELETE /api/v1/user/:email`
+- **Propósito**: Admin elimina un usuario
+- **Ejemplo**: `DELETE /api/v1/user/usuarioDelete22@ejemplo.com`
+- **Token**: Admin token
+- **Resultado**: Usuario eliminado del sistema
+
+---
 
 ### Hay dos archivos de Postman, uno para la colección y el otro para el Environment con las variables utilizadas
 ### Tener en cuenta, que si falla un ruta puede ser por varias causas:
