@@ -2,10 +2,20 @@ import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals
 import { Request, Response } from 'express';
 import { movieController } from '../../src/controllers/movie.controller';
 import { movieService } from '../../src/services/movie.service';
+import { reviewService } from '../../src/services/review.service';
+
 
 // Mock del servicio
 jest.mock('../../src/services/movie.service');
+jest.mock('../../src/services/review.service', () => ({
+  reviewService: {
+    findReviewById: jest.fn(),
+  }
+}));
+
 const mockMovieService = movieService as jest.Mocked<typeof movieService>;
+const mockReviewService = reviewService as jest.Mocked<typeof reviewService>;
+
 
 describe('MovieController', () => {
   let mockRequest: Partial<Request>;
@@ -481,13 +491,17 @@ describe('MovieController', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(500);
       expect(mockResponse.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
     });
-    });
+  });
 
   describe('removeReviewFromMovie', () => {
-    it('should remove review', async () => {
+    it('should remove review successfully as admin', async () => {
       const movie = { _id: 'm1', reviews: [] } as any;
       mockRequest.params = { id: 'm1' };
-      mockRequest.body = { reviewId: 'r1' };
+      mockRequest.body = { 
+        reviewId: 'r1', 
+        user: { _id: 'u1', role: 'admin' } 
+      };
+      
       mockMovieService.removeReviewFromMovie.mockResolvedValueOnce(movie);
 
       await movieController.removeReviewFromMovie(mockRequest as Request, mockResponse as Response);
@@ -498,6 +512,26 @@ describe('MovieController', () => {
         message: 'Review removed from movie successfully',
         movie,
       });
+    });
+
+    it('should remove review successfully as review owner', async () => {
+      const movie = { _id: 'm1', reviews: [] } as any;
+      const review = { _id: 'r1', userId: 'u1' } as any;
+      
+      mockRequest.params = { id: 'm1' };
+      mockRequest.body = { 
+        reviewId: 'r1', 
+        user: { _id: 'u1', role: 'user' } 
+      };
+      
+      mockReviewService.findReviewById.mockResolvedValueOnce(review);
+      mockMovieService.removeReviewFromMovie.mockResolvedValueOnce(movie);
+
+      await movieController.removeReviewFromMovie(mockRequest as Request, mockResponse as Response);
+
+      expect(mockReviewService.findReviewById).toHaveBeenCalledWith('r1');
+      expect(mockMovieService.removeReviewFromMovie).toHaveBeenCalledWith('m1', 'r1');
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
     });
 
     it('should return 400 if movie id missing', async () => {
@@ -511,7 +545,7 @@ describe('MovieController', () => {
 
     it('should return 400 if review id missing', async () => {
       mockRequest.params = { id: 'm1' };
-      mockRequest.body = {};
+      mockRequest.body = { user: { _id: 'u1', role: 'user' } };
 
       await movieController.removeReviewFromMovie(mockRequest as Request, mockResponse as Response);
 
@@ -519,9 +553,50 @@ describe('MovieController', () => {
       expect(mockResponse.json).toHaveBeenCalledWith({ message: 'Review ID is required' });
     });
 
-    it('should return 404 if movie not found', async () => {
+    it('should return 404 if review not found', async () => {
       mockRequest.params = { id: 'm1' };
-      mockRequest.body = { reviewId: 'r1' };
+      mockRequest.body = { 
+        reviewId: 'r1', 
+        user: { _id: 'u1', role: 'user' } 
+      };
+      
+      mockReviewService.findReviewById.mockResolvedValueOnce(null);
+
+      await movieController.removeReviewFromMovie(mockRequest as Request, mockResponse as Response);
+
+      expect(mockResponse.status).toHaveBeenCalledWith(404);
+      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'Review not found' });
+    });
+
+    it('should return 403 if user is not review owner', async () => {
+      const review = { _id: 'r1', userId: 'other-user' } as any;
+      
+      mockRequest.params = { id: 'm1' };
+      mockRequest.body = { 
+        reviewId: 'r1', 
+        user: { _id: 'u1', role: 'user' } 
+      };
+      
+      mockReviewService.findReviewById.mockResolvedValueOnce(review);
+
+      await movieController.removeReviewFromMovie(mockRequest as Request, mockResponse as Response);
+
+      expect(mockResponse.status).toHaveBeenCalledWith(403);
+      expect(mockResponse.json).toHaveBeenCalledWith({ 
+        message: 'You can only remove your own reviews from a movie' 
+      });
+    });
+
+    it('should return 404 if movie not found', async () => {
+      const review = { _id: 'r1', userId: 'u1' } as any;
+      
+      mockRequest.params = { id: 'm1' };
+      mockRequest.body = { 
+        reviewId: 'r1', 
+        user: { _id: 'u1', role: 'user' } 
+      };
+      
+      mockReviewService.findReviewById.mockResolvedValueOnce(review);
       mockMovieService.removeReviewFromMovie.mockResolvedValueOnce(null);
 
       await movieController.removeReviewFromMovie(mockRequest as Request, mockResponse as Response);
@@ -532,7 +607,11 @@ describe('MovieController', () => {
 
     it('should return 500 on error', async () => {
       mockRequest.params = { id: 'm1' };
-      mockRequest.body = { reviewId: 'r1' };
+      mockRequest.body = { 
+        reviewId: 'r1', 
+        user: { _id: 'u1', role: 'admin' } 
+      };
+      
       mockMovieService.removeReviewFromMovie.mockRejectedValueOnce(new Error('boom'));
 
       await movieController.removeReviewFromMovie(mockRequest as Request, mockResponse as Response);
