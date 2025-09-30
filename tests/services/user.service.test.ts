@@ -1,10 +1,10 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
-import { userService } from '../../src/services/user.service';
-import { UserModel } from '../../src/models/user.model';
-import { UserInput } from '../../src/models/user.model';
+import { userService } from '../../src/services/user.service.js';
+import { UserModel } from '../../src/models/user.model.js';
+import { UserInput } from '../../src/models/user.model.js';
 
 // Mock UserModel
-jest.mock('../../src/models/user.model', () => ({
+jest.mock('../../src/models/user.model.js', () => ({
   UserModel: {
     create: jest.fn(),
     find: jest.fn(),

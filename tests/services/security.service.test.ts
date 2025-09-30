@@ -2,7 +2,7 @@ import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-import { securityService } from '../../src/services/security.service';
+import { securityService } from '../../src/services/security.service.js';
 
 // Mock bcrypt
 jest.mock('bcrypt');

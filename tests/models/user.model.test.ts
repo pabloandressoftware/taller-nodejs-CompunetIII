@@ -1,6 +1,6 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
 import mongoose from 'mongoose';
-import { UserModel, UserDocument, UserInput, UserRole } from '../../src/models/user.model';
+import { UserModel, UserDocument, UserInput, UserRole } from '../../src/models/user.model.js';
 
 // Mock mongoose
 jest.mock('mongoose', () => ({

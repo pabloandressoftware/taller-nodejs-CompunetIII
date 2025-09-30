@@ -1,3 +1,4 @@
+// jest.config.cjs
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -25,6 +26,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^(.+)\\.js$': '$1',
   },
   testTimeout: 10000,
   clearMocks: true,

@@ -1,6 +1,6 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
-import { movieService } from '../../src/services/movie.service';
-import { MovieModel } from '../../src/models/movie.model';
+import { movieService } from '../../src/services/movie.service.js';
+import { MovieModel } from '../../src/models/movie.model.js';
 
 // Mock MovieModel
 jest.mock('../../src/models/movie.model', () => ({

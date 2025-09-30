@@ -1,12 +1,12 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
 import { Request, Response } from 'express';
-import { reviewController } from '../../src/controllers/review.controller';
-import { reviewService } from '../../src/services/review.service';
-import { movieService } from '../../src/services/movie.service';
+import { reviewController } from '../../src/controllers/review.controller.js';
+import { reviewService } from '../../src/services/review.service.js';
+import { movieService } from '../../src/services/movie.service.js';
 
 // Mock de los servicios
-jest.mock('../../src/services/review.service');
-jest.mock('../../src/services/movie.service');
+jest.mock('../../src/services/review.service.js');
+jest.mock('../../src/services/movie.service.js');
 
 const mockReviewService = reviewService as jest.Mocked<typeof reviewService>;
 const mockMovieService = movieService as jest.Mocked<typeof movieService>;

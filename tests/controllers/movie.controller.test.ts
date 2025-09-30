@@ -1,13 +1,13 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
 import { Request, Response } from 'express';
-import { movieController } from '../../src/controllers/movie.controller';
-import { movieService } from '../../src/services/movie.service';
-import { reviewService } from '../../src/services/review.service';
+import { movieController } from '../../src/controllers/movie.controller.js';
+import { movieService } from '../../src/services/movie.service.js';
+import { reviewService } from '../../src/services/review.service.js';
 
 
 // Mock del servicio
-jest.mock('../../src/services/movie.service');
-jest.mock('../../src/services/review.service', () => ({
+jest.mock('../../src/services/movie.service.js');
+jest.mock('../../src/services/review.service.js', () => ({
   reviewService: {
     findReviewById: jest.fn(),
   }

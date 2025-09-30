@@ -1,11 +1,11 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
-import { reviewService } from '../../src/services/review.service';
-import { ReviewModel } from '../../src/models/review.model';
-import { MovieModel } from '../../src/models/movie.model';
-import { UserModel } from '../../src/models/user.model';
+import { reviewService } from '../../src/services/review.service.js';
+import { ReviewModel } from '../../src/models/review.model.js';
+import { MovieModel } from '../../src/models/movie.model.js';
+import { UserModel } from '../../src/models/user.model.js';
 
 // Mock de los modelos
-jest.mock('../../src/models/review.model', () => ({
+jest.mock('../../src/models/review.model.js', () => ({
   ReviewModel: {
     create: jest.fn(),
     find: jest.fn(),

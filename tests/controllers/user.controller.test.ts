@@ -1,13 +1,13 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
 import { Request, Response } from 'express';
-import { userController } from '../../src/controllers/user.controller';
-import { userService } from '../../src/services/user.service';
-import { securityService } from '../../src/services/security.service';
-import { UserDocument, UserInput } from '../../src/models/user.model';
+import { userController } from '../../src/controllers/user.controller.js';
+import { userService } from '../../src/services/user.service.js';
+import { securityService } from '../../src/services/security.service.js';
+import { UserDocument, UserInput } from '../../src/models/user.model.js';
 
 // Mock services
-jest.mock('../../src/services/user.service');
-jest.mock('../../src/services/security.service');
+jest.mock('../../src/services/user.service.js');
+jest.mock('../../src/services/security.service.js');
 
 const mockUserService = userService as jest.Mocked<typeof userService>;
 const mockSecurityService = securityService as jest.Mocked<typeof securityService>;

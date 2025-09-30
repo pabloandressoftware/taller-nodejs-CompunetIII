@@ -1,8 +1,8 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { auth, authorizeRoles } from '../../src/middlewares/auth.middleware';
-import { UserRole } from '../../src/models/user.model';
+import { auth, authorizeRoles } from '../../src/middlewares/auth.middleware.js';
+import { UserRole } from '../../src/models/user.model.js';
 
 // Mock jsonwebtoken
 jest.mock('jsonwebtoken');
