@@ -191,11 +191,11 @@ bun test:coverage
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 El proyecto incluye **pruebas unitarias completas** desarrolladas con **Jest** para garantizar la calidad del código.
 
-### 📊 Cobertura de Tests
+###  Cobertura de Tests
 
 | Módulo | Componentes | Tests | Estado |
 |--------|-------------|-------|--------|
@@ -204,7 +204,7 @@ El proyecto incluye **pruebas unitarias completas** desarrolladas con **Jest** p
 | **Users** | Controlador, Servicio, Modelo | 40+ | ✅ |
 | **Middlewares** | Auth | 10+ | ✅ |
 
-### 🎯 Tests del Módulo Review (Recién Implementados)
+###  Tests del Módulo Review (Recién Implementados)
 
 Se han desarrollado **49 pruebas unitarias** completas para el módulo de Review:
 
@@ -223,7 +223,7 @@ Se han desarrollado **49 pruebas unitarias** completas para el módulo de Review
   - Tipos y referencias
   - Validaciones de negocio
 
-### 🚀 Comandos de Testing
+###  Comandos de Testing
 
 ```bash
 # Ejecutar todos los tests
@@ -238,23 +238,6 @@ bun test:coverage
 # Modo watch (desarrollo)
 bun test:watch
 ```
-
-### 📚 Documentación de Tests
-
-- **Resumen general**: `test.md`
-- **Tests de Review**: `tests/README_REVIEW_TESTS.md`
-- **Resumen detallado**: `REVIEW_TESTS_SUMMARY.md`
-
-### ✨ Características de los Tests
-
-- ✅ **Mocking completo** - Sin llamadas reales a BD
-- ✅ **Tests aislados** - Independientes entre sí
-- ✅ **Cobertura de casos edge** - Errores, validaciones, permisos
-- ✅ **Patrón AAA** - Arrange, Act, Assert
-- ✅ **TypeScript** - Tipado completo
-
----
-
 ## Dificultades Encontradas
 
 ### Dificultades Encontradas
