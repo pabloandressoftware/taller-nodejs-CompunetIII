@@ -1,21 +1,17 @@
 {
   "compilerOptions": {
-
     "outDir": "./dist",
-    // Environment setup & latest features
-    "lib": ["ESNext"],
-    "target": "ESNext",
-    "module": "Preserve",
+    "rootDir": "./",
+    "lib": ["ES2022"],
+    "target": "ES2022",
+    "module": "ESNext",
     "moduleDetection": "force",
-    "jsx": "react-jsx",
     "allowJs": true,
 
     // Bundler mode
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    //"allowImportingTsExtensions": true,
-    //"verbatimModuleSyntax": true,
     "noEmit": false,
 
     // Best practices
