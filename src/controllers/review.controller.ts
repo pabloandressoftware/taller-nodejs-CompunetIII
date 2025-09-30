@@ -80,6 +80,28 @@ class ReviewController {
     }
   }
 
+  async findReviewById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({ message: 'Review ID is required' });
+      }
+
+      const review = await reviewService.findReviewById(id);
+      if (!review) {
+        return res.status(404).json({ message: 'Review not found' });
+      }
+
+      res.status(200).json({
+        message: 'Review retrieved successfully',
+        review
+      });
+    } catch (error) {
+      console.error('Error in findReviewById controller:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
   async deleteReview(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -97,7 +119,17 @@ class ReviewController {
       }
 
       // Verificar permisos (solo el propietario o admin puede eliminar)
-      if (existingReviews.userId !== userId && userRole !== 'admin') {
+      const ownerId = (existingReviews as any).userId?._id?.toString?.() || (existingReviews as any).userId?.toString?.();
+      console.log('Debug deleteReview:', {
+        userId: userId,
+        ownerId: ownerId,
+        userRole: userRole,
+        reviewUserId: existingReviews.userId,
+        isOwner: ownerId === userId,
+        isAdmin: userRole === 'admin'
+      });
+      
+      if (ownerId !== userId && userRole !== 'admin') {
         return res.status(403).json({ message: 'You can only delete your own reviews' });
       }
 
@@ -131,7 +163,17 @@ class ReviewController {
       }
 
       // Verificar permisos (solo el propietario o admin puede actualizar)
-      if (existingReview.userId !== userId && userRole !== 'admin') {
+      const ownerId = (existingReview as any).userId?._id?.toString?.() || (existingReview as any).userId?.toString?.();
+      console.log('Debug updateReview:', {
+        userId: userId,
+        ownerId: ownerId,
+        userRole: userRole,
+        reviewUserId: existingReview.userId,
+        isOwner: ownerId === userId,
+        isAdmin: userRole === 'admin'
+      });
+      
+      if (ownerId !== userId && userRole !== 'admin') {
         return res.status(403).json({ message: 'You can only update your own reviews' });
       }
 

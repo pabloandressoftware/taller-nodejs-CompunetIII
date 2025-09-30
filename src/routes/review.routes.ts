@@ -12,6 +12,9 @@ reviewRouter.post('/', auth, reviewController.create);
 // Obtener todas las reseñas
 reviewRouter.get('/', auth, reviewController.findAllReviews);
 
+// Obtener una reseña por id
+reviewRouter.get('/:id', auth, reviewController.findReviewById);
+
 // Eliminar una reseña
 reviewRouter.delete('/:id', auth, reviewController.deleteReview);
 

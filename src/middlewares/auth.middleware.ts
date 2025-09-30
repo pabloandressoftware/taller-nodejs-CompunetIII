@@ -12,7 +12,7 @@ export const auth = async(req: Request, res: Response, next: NextFunction) => {
         const decoded = jwt.verify(token, 'secret') as any;
         
         // Debug: mostrar qué contiene el token
-        console.log("🔍 Decoded token:", decoded);
+        console.log(" Decoded token:", decoded);
         
         // Inicializar req.body si no existe
         if (!req.body) {
@@ -21,7 +21,7 @@ export const auth = async(req: Request, res: Response, next: NextFunction) => {
         req.body.user = decoded;
         next();
     }catch (error) {
-        console.error("❌ Auth middleware error:", error);
+        console.error(" Auth middleware error:", error);
         res.status(403).json({message: "Invalid token"});
     }
 }

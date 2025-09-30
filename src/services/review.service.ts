@@ -67,9 +67,12 @@ class ReviewService {
 
   async updateReview(id: string, review: ReviewsInput) {
     try {
-
-      const updateReview: ReviewDocument | null = await ReviewModel.findOneAndUpdate({ id }, review, { returnOriginal: false });
-      return updateReview;
+      const updatedReview: ReviewDocument | null = await ReviewModel.findByIdAndUpdate(
+        id,
+        review,
+        { new: true }
+      );
+      return updatedReview;
     } catch (error) {
 
       console.log("ReviewService ~ UpdateReview ~ error:", error);

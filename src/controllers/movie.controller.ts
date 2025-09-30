@@ -226,7 +226,7 @@ class MovieController {
         }
     }
 
-    // Eliminar reseña de una película
+    // Eliminar reseña de una película (solo propietario de la reseña o admin)
     async removeReviewFromMovie(req: Request, res: Response) {
         try {
             const { id } = req.params;
@@ -238,7 +238,21 @@ class MovieController {
             if (!reviewId) {
                 return res.status(400).json({ message: 'Review ID is required' });
             }
-            
+            const userId = req.body.user?._id;
+            const userRole = req.body.user?.role;
+
+            // Si no es admin, validar que el usuario sea dueño de la reseña
+            if (userRole !== 'admin') {
+                const review = await (await import('../services/review.service')).reviewService.findReviewById(reviewId);
+                if (!review) {
+                    return res.status(404).json({ message: 'Review not found' });
+                }
+                const ownerId = (review as any).userId?._id?.toString?.() || (review as any).userId?.toString?.();
+                if (ownerId !== userId) {
+                    return res.status(403).json({ message: 'You can only remove your own reviews from a movie' });
+                }
+            }
+
             const movie = await movieService.removeReviewFromMovie(id, reviewId);
             if (!movie) {
                 return res.status(404).json({ message: 'Movie not found' });
