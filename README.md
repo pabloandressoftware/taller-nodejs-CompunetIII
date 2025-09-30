@@ -191,17 +191,67 @@ bun test:coverage
 
 ---
 
-## Testing
+## 🧪 Testing
 
-El proyecto incluye tests unitarios para los servicios principales:
+El proyecto incluye **pruebas unitarias completas** desarrolladas con **Jest** para garantizar la calidad del código.
+
+### 📊 Cobertura de Tests
+
+| Módulo | Componentes | Tests | Estado |
+|--------|-------------|-------|--------|
+| **Movies** | Controlador, Servicio, Modelo | 50+ | ✅ |
+| **Reviews** | Controlador, Servicio, Modelo | 49 | ✅ |
+| **Users** | Controlador, Servicio, Modelo | 40+ | ✅ |
+| **Middlewares** | Auth | 10+ | ✅ |
+
+### 🎯 Tests del Módulo Review (Recién Implementados)
+
+Se han desarrollado **49 pruebas unitarias** completas para el módulo de Review:
+
+- **Controlador** (`review.controller.test.ts`): 24 tests
+  - Validación de autenticación y permisos
+  - CRUD completo con casos edge
+  - Manejo de errores específicos
+
+- **Servicio** (`review.service.test.ts`): 14 tests
+  - Validación de existencia de Movie y User
+  - Operaciones de base de datos
+  - Manejo de errores
+
+- **Modelo** (`review.model.test.ts`): 11 tests
+  - Validación de schema
+  - Tipos y referencias
+  - Validaciones de negocio
+
+### 🚀 Comandos de Testing
 
 ```bash
-# Ejecutar tests
+# Ejecutar todos los tests
 bun test
 
-# Ver cobertura
+# Ejecutar solo tests de review
+bun test -- --testPathPattern=review
+
+# Ver cobertura completa
 bun test:coverage
+
+# Modo watch (desarrollo)
+bun test:watch
 ```
+
+### 📚 Documentación de Tests
+
+- **Resumen general**: `test.md`
+- **Tests de Review**: `tests/README_REVIEW_TESTS.md`
+- **Resumen detallado**: `REVIEW_TESTS_SUMMARY.md`
+
+### ✨ Características de los Tests
+
+- ✅ **Mocking completo** - Sin llamadas reales a BD
+- ✅ **Tests aislados** - Independientes entre sí
+- ✅ **Cobertura de casos edge** - Errores, validaciones, permisos
+- ✅ **Patrón AAA** - Arrange, Act, Assert
+- ✅ **TypeScript** - Tipado completo
 
 ---
 
