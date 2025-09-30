@@ -28,7 +28,6 @@ describe('MovieController', () => {
     jest.restoreAllMocks();
   });
 
-  // ---------- createMovie ----------
   describe('createMovie', () => {
     it('should create a movie successfully', async () => {
       const movieData = {
@@ -73,7 +72,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- getAllMovies ----------
   describe('getAllMovies', () => {
     it('should return all movies', async () => {
       const movies = [
@@ -104,7 +102,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- getMovieById ----------
   describe('getMovieById', () => {
     it('should return movie by id', async () => {
       const movie = { _id: 'm1', title: 'A' } as any;
@@ -152,7 +149,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- getMyMovies ----------
   describe('getMyMovies', () => {
     it('should return movies for user', async () => {
       const movies = [{ _id: 'm1', title: 'Mine' }] as any[];
@@ -190,7 +186,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- searchMoviesByTitle ----------
   describe('searchMoviesByTitle', () => {
     it('should return movies by title', async () => {
       const movies = [{ _id: 'm1', title: 'Test Movie' }] as any[];
@@ -228,7 +223,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- searchMoviesByGenre ----------
   describe('searchMoviesByGenre', () => {
     it('should return movies by genre', async () => {
       const movies = [{ _id: 'm1', genre: 'Action' }] as any[];
@@ -266,7 +260,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- updateMovie ----------
   describe('updateMovie', () => {
     it('should update as owner', async () => {
       const existing = { _id: 'm1', userId: 'u1', title: 'Old' } as any;
@@ -345,7 +338,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- deleteMovie ----------
   describe('deleteMovie', () => {
     it('should delete as owner', async () => {
       const existing = { _id: 'm1', userId: 'u1' } as any;
@@ -432,7 +424,6 @@ describe('MovieController', () => {
     });
   });
 
-  // ---------- addReviewToMovie ----------
   describe('addReviewToMovie', () => {
     it('should add review', async () => {
       const movie = { _id: 'm1', reviews: ['r1'] } as any;
@@ -492,7 +483,6 @@ describe('MovieController', () => {
     });
     });
 
-  // ---------- removeReviewFromMovie ----------
   describe('removeReviewFromMovie', () => {
     it('should remove review', async () => {
       const movie = { _id: 'm1', reviews: [] } as any;

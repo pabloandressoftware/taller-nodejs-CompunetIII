@@ -1,6 +1,5 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
 
-// ⚠️ No importes mongoose/MovieModel aquí. Primero definimos el mock global.
 jest.mock('mongoose', () => {
   const SchemaMock: any = jest.fn().mockImplementation(function (this: any, definition: any, options: any) {
     this.definition = definition;
@@ -9,7 +8,6 @@ jest.mock('mongoose', () => {
   });
   SchemaMock.Types = {
     ObjectId: function MockObjectId() {
-      /* marcador */
     },
   };
 
@@ -35,18 +33,15 @@ jest.mock('mongoose', () => {
     disconnect: jest.fn(),
   };
 
-  // Soporta import default (`import mongoose from 'mongoose'`)
   return { __esModule: true, default: mocked, ...mocked };
 });
 
 describe('Movie Model', () => {
-  // Punteros a los mocks reales (después de require)
   let mongoose: any;
 
   beforeEach(() => {
     jest.resetModules();
     jest.clearAllMocks();
-    // Cargamos la versión mockeada de mongoose para leer sus mocks
     mongoose = require('mongoose').default ?? require('mongoose');
   });
 
@@ -63,10 +58,8 @@ describe('Movie Model', () => {
     });
 
     it('debería re-exportar el tipo MoviesInput', () => {
-      // Sólo comprobación de que compila/está accesible
       jest.isolateModules(() => {
         const { } = require('../../src/models/movie.model');
-        // Si el import falla, no llega aquí.
         expect(true).toBe(true);
       });
     });
@@ -83,22 +76,18 @@ describe('Movie Model', () => {
 
         const [definition, options] = schemaCalls[0] as any[];
 
-        // timestamps
         expect(options?.timestamps).toBe(true);
 
-        // Campos requeridos
         expect(definition.title?.required).toBe(true);
         expect(definition.description?.required).toBe(true);
         expect(definition.director?.required).toBe(true);
         expect(definition.releaseDate?.required).toBe(true);
         expect(definition.genre?.required).toBe(true);
 
-        // userId: ObjectId + ref User + required
         expect(definition.userId?.required).toBe(true);
         expect(definition.userId?.ref).toBe('User');
         expect(definition.userId?.type).toBe((mongoose.Schema as any).Types.ObjectId);
 
-        // reviews: array de ObjectId con ref Review
         expect(Array.isArray(definition.reviews)).toBe(true);
         const reviewItem = definition.reviews[0];
         expect(reviewItem?.ref).toBe('Review');
@@ -129,7 +118,6 @@ describe('Movie Model', () => {
     it('MovieDocument debería extender base', () => {
       jest.isolateModules(() => {
         const { MovieDocument } = require('../../src/models/movie.model') as any;
-        // runtime sanity básico
         const mockDoc: Partial<typeof MovieDocument> = {
           _id: 'mock-object-id' as any,
           title: 'Inception',
@@ -145,7 +133,6 @@ describe('Movie Model', () => {
     });
 
     it('MoviesInput acepta forma base requerida', () => {
-      // No necesitamos importar nada: sólo demostramos estructura válida
       const valid = {
         title: 'Dunkirk',
         description: 'War drama',

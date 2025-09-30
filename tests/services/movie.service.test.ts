@@ -24,7 +24,6 @@ describe('MovieService', () => {
     jest.restoreAllMocks();
   });
 
-  // ---------- createMovie ----------
   describe('createMovie', () => {
     it('should create a movie successfully', async () => {
       const input = {
@@ -52,7 +51,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- findAllMovies ----------
   describe('findAllMovies', () => {
     it('should return populated movies list', async () => {
       const movies = [{ _id: 'm1' }, { _id: 'm2' }];
@@ -82,7 +80,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- findMovieById ----------
   describe('findMovieById', () => {
     it('should return populated movie', async () => {
       const movie = { _id: 'm1', title: 'A' };
@@ -124,7 +121,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- findMoviesByUser ----------
   describe('findMoviesByUser', () => {
     it('should return movies for a user', async () => {
       const movies = [{ _id: 'm1', userId: 'u1' }];
@@ -154,7 +150,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- findMoviesByTitle ----------
   describe('findMoviesByTitle', () => {
     it('should return movies matching title (case-insensitive)', async () => {
       const movies = [{ _id: 'm1', title: 'Test' }];
@@ -186,7 +181,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- findMoviesByGenre ----------
   describe('findMoviesByGenre', () => {
     it('should return movies matching genre (case-insensitive)', async () => {
       const movies = [{ _id: 'm1', genre: 'Action' }];
@@ -218,7 +212,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- updateMovie ----------
   describe('updateMovie', () => {
     it('should update and return populated movie', async () => {
       const updated = { _id: 'm1', title: 'New' };
@@ -248,7 +241,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- deleteMovie ----------
   describe('deleteMovie', () => {
     it('should return true when a movie is deleted', async () => {
       (mockMovieModel.findByIdAndDelete as any).mockResolvedValueOnce({ _id: 'm1' });
@@ -275,7 +267,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- addReviewToMovie ----------
   describe('addReviewToMovie', () => {
     it('should push review and return populated movie', async () => {
       const movie = { _id: 'm1', reviews: ['r1'] };
@@ -309,7 +300,6 @@ describe('MovieService', () => {
     });
   });
 
-  // ---------- removeReviewFromMovie ----------
   describe('removeReviewFromMovie', () => {
     it('should pull review and return populated movie', async () => {
       const movie = { _id: 'm1', reviews: [] };
