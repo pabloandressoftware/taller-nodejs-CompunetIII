@@ -1,3 +1,6 @@
+### Proyecto desplegado: 
+https://taller-nodejs-compunet-iii-one.vercel.app/
+
 # API RESTful de Gestión de Películas y Reseñas
 
 ##  Descripción del Proyecto
