@@ -7,8 +7,8 @@ https://taller-nodejs-compunet-iii-one.vercel.app/
 
 API RESTful desarrollada con Node.js, Express y MongoDB que implementa un sistema de gestión de películas y reseñas con autenticación y autorización de usuarios. El proyecto cumple con los requisitos de tener dos módulos interrelacionados:
 
-- **Módulo 1 - Gestión de Películas**: Los usuarios autenticados pueden crear, visualizar, modificar y eliminar sus propias películas.
-- **Módulo 2 - Gestión de Reseñas**: Los usuarios pueden crear, visualizar, modificar y eliminar reseñas asociadas a películas específicas.
+- **Módulo 1 - Gestión de Películas**: Los administradores pueden crear películas. Todos los usuarios pueden visualizar películas públicamente. Los propietarios y administradores pueden modificar y eliminar películas.
+- **Módulo 2 - Gestión de Reseñas**: Los usuarios autenticados pueden crear, visualizar, modificar y eliminar reseñas asociadas a películas específicas.
 
 ### Características Principales
 
@@ -18,18 +18,19 @@ API RESTful desarrollada con Node.js, Express y MongoDB que implementa un sistem
 - Middleware de autenticación para proteger rutas
 
  **Gestión de Películas (CRUD Completo)**
-- Crear películas (solo usuarios autenticados)
-- Listar todas las películas
-- Buscar películas por ID, título, género o usuario
-- Actualizar películas propias
-- Eliminar películas propias
+- Crear películas (solo administradores)
+- Listar todas las películas (público)
+- Buscar películas por ID, título o género (público)
+- Actualizar películas (solo propietario o administrador)
+- Eliminar películas (solo propietario o administrador)
 
  **Gestión de Reseñas (CRUD Completo)**
-- Crear reseñas para películas existentes
+- Crear reseñas para películas existentes (requiere autenticación)
 - Validación de existencia de película y usuario
-- Listar todas las reseñas
-- Actualizar reseñas propias
-- Eliminar reseñas propias
+- Listar todas las reseñas (requiere autenticación)
+- Obtener reseña por ID (requiere autenticación)
+- Actualizar reseñas (solo propietario o administrador)
+- Eliminar reseñas (solo propietario o administrador)
 - Relación bidireccional con películas
 
  **Interrelación entre Módulos**
