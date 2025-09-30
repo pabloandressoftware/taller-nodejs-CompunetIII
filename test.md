@@ -1,7 +1,7 @@
 # Testing Implementation Summary
 
 ```bash
-# Run all tests
+# Run all tests that they are in the tests folder
 bun test
 
 # Run with coverage
