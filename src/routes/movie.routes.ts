@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { movieController } from "../controllers/movie.controller";
-import { auth, authorizeRoles } from "../middlewares/auth.middleware";
+import { movieController } from "../controllers/movie.controller.js";
+import { auth, authorizeRoles } from "../middlewares/auth.middleware.js";
 
 export const movieRouter = Router();
 

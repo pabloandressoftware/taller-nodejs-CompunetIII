@@ -1,5 +1,5 @@
 import mongoose  from "mongoose";
-import { UserInput } from '../interfaces/user.interface';
+import { UserInput } from '../interfaces/user.interface.js';
 
 export type UserRole = 'admin' | 'user';
 

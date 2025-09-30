@@ -4,6 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
     "dev": "tsc && bun run dist/index.js",
     "test": "bun jest",
     "test:watch": "bun jest --watch",

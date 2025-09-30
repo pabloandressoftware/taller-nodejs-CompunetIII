@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { ReviewsInput } from '../models/review.model';
-import { reviewService } from "../services/review.service";
-import { movieService } from "../services/movie.service";
+import { ReviewsInput } from '../models/review.model.js';
+import { reviewService } from "../services/review.service.js";
+import { movieService } from "../services/movie.service.js";
 
 class ReviewController {
 

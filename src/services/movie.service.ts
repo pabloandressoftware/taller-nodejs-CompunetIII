@@ -1,4 +1,4 @@
-import { MovieDocument, MovieModel, MoviesInput } from '../models/movie.model';
+import { MovieDocument, MovieModel, MoviesInput } from '../models/movie.model.js';
 
 class MovieService {
 

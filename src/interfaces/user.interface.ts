@@ -1,4 +1,4 @@
-import { UserRole } from "../models/user.model";
+import { UserRole } from "../models/user.model.js";
 
 export interface UserInput {
     name: string;

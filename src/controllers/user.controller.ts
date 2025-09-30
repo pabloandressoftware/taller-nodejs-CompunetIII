@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { userService } from '../services/user.service';
-import { securityService } from '../services/security.service';
-import { UserDocument, UserInput } from '../models/user.model';
+import { userService } from '../services/user.service.js';
+import { securityService } from '../services/security.service.js';
+import { UserDocument, UserInput } from '../models/user.model.js';
 
 class UserController {
 

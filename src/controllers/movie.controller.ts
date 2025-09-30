@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { movieService } from '../services/movie.service';
-import { MoviesInput } from '../models/movie.model';
+import { movieService } from '../services/movie.service.js';
+import { MoviesInput } from '../models/movie.model.js';
 
 class MovieController {
 

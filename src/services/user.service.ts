@@ -1,4 +1,4 @@
-import { UserDocument, UserModel, UserInput } from '../models/user.model';
+import { UserDocument, UserModel, UserInput } from '../models/user.model.js';
 
 class UserService {
 

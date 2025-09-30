@@ -1,7 +1,7 @@
 import { ReviewsInput } from "../interfaces";
-import { ReviewDocument, ReviewModel } from "../models/review.model";
-import { MovieModel } from "../models/movie.model";
-import { UserModel } from "../models/user.model";
+import { ReviewDocument, ReviewModel } from "../models/review.model.js";
+import { MovieModel } from "../models/movie.model.js";
+import { UserModel } from "../models/user.model.js";
 
 class ReviewService {
   // Crear una nueva pelicula

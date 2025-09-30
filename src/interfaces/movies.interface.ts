@@ -1,4 +1,4 @@
-import { ReviewDocument } from "../models/review.model";
+import { ReviewDocument } from "../models/review.model.js";
 
 export interface MoviesInput {
   title: string;

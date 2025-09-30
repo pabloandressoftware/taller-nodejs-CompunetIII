@@ -1,9 +1,9 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
-import { connectDB } from "./src/lib/db";
-import { reviewRouter } from "./src/routes/review.routes";
-import { movieRouter } from "./src/routes/movie.routes";
-import { userRouter } from "./src/routes/user.routes";
+import { connectDB } from "./src/lib/db.js";
+import { reviewRouter } from "./src/routes/review.routes.js";
+import { movieRouter } from "./src/routes/movie.routes.js";
+import { userRouter } from "./src/routes/user.routes.js";
 
 // Cargar variables de entorno
 dotenv.config();

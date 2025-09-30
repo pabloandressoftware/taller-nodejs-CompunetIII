@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import { MoviesInput } from '../interfaces/movies.interface';
+import { MoviesInput } from '../interfaces/movies.interface.js';
 
 export interface MovieDocument extends MoviesInput, mongoose.Document {}
 
