@@ -149,6 +149,141 @@ bun test:coverage
 
 ##  Endpoints de la API
 
+## **Autenticación de Usuarios**
+
+### **POST** `/users/register` - Registrar nuevo usuario
+- **Descripción:** Crea una nueva cuenta de usuario en el sistema
+- **Autenticación:** No requerida
+
+### **POST** `/users/login` - Iniciar sesión
+- **Descripción:** Autentica un usuario y devuelve un JWT token
+- **Autenticación:** No requerida
+
+---
+
+## **Gestión de Usuarios**
+
+### **GET** `/users/` - Obtener todos los usuarios
+- **Descripción:** Lista todos los usuarios registrados
+- **Autenticación:** Requerida
+- **Permisos:** Solo administradores
+- **Headers:** `Authorization: Bearer <token>`
+
+### **GET** `/users/profile/:email` - Obtener perfil de usuario
+- **Descripción:** Obtiene la información de un usuario específico por email
+- **Autenticación:** Requerida
+- **Permisos:** Solo el propietario del perfil o administrador
+- **Headers:** `Authorization: Bearer <token>`
+
+### **PUT** `/users/:email` - Actualizar usuario
+- **Descripción:** Actualiza la información de un usuario
+- **Autenticación:** Requerida
+- **Permisos:** Solo el propietario del perfil o administrador
+- **Headers:** `Authorization: Bearer <token>`
+
+### **DELETE** `/users/:email` - Eliminar usuario
+- **Descripción:** Elimina un usuario del sistema
+- **Autenticación:** Requerida
+- **Permisos:** Solo administradores
+- **Headers:** `Authorization: Bearer <token>`
+
+---
+
+## **Gestión de Películas**
+
+### **POST** `/movies/` - Crear nueva película
+- **Descripción:** Crea una nueva película asociada al usuario autenticado
+- **Autenticación:** Requerida
+- **Permisos:** Cualquier usuario autenticado
+- **Headers:** `Authorization: Bearer <token>`
+
+### **GET** `/movies/` - Obtener todas las películas
+- **Descripción:** Lista todas las películas con información del usuario y reseñas
+- **Autenticación:** No requerida
+- **Permisos:** Público
+
+### **GET** `/movies/:id` - Obtener película por ID
+- **Descripción:** Obtiene una película específica con información completa
+- **Autenticación:** No requerida
+- **Permisos:** Público
+
+### **GET** `/movies/my-movies` - Obtener mis películas
+- **Descripción:** Lista todas las películas creadas por el usuario autenticado
+- **Autenticación:** Requerida
+- **Permisos:** Usuario autenticado (sus propias películas)
+- **Headers:** `Authorization: Bearer <token>`
+
+### **GET** `/movies/search/title?title=inception` - Buscar por título
+- **Descripción:** Busca películas por título (case-insensitive)
+- **Autenticación:** No requerida
+- **Permisos:** Público
+- **Query Params:** `title` (string)
+
+### **GET** `/movies/search/genre?genre=action` - Buscar por género
+- **Descripción:** Busca películas por género (case-insensitive)
+- **Autenticación:** No requerida
+- **Permisos:** Público
+- **Query Params:** `genre` (string)
+
+### **PUT** `/movies/:id` - Actualizar película
+- **Descripción:** Actualiza una película existente
+- **Autenticación:** Requerida
+- **Permisos:** Solo el propietario de la película o administrador
+- **Headers:** `Authorization: Bearer <token>`
+- **Body:** Campos a actualizar (title, description, director, etc.)
+
+### **DELETE** `/movies/:id` - Eliminar película
+- **Descripción:** Elimina una película del sistema
+- **Autenticación:** Requerida
+- **Permisos:** Solo el propietario de la película o administrador
+- **Headers:** `Authorization: Bearer <token>`
+
+### **PUT** `/movies/:id/reviews` - Agregar reseña a película
+- **Descripción:** Asocia una reseña existente a una película
+- **Autenticación:** Requerida
+- **Permisos:** Usuario autenticado
+- **Headers:** `Authorization: Bearer <token>`
+
+### **DELETE** `/movies/:id/reviews` - Eliminar reseña de película
+- **Descripción:** Desasocia una reseña de una película
+- **Autenticación:** Requerida
+- **Permisos:** Propietario de la reseña o administrador
+- **Headers:** `Authorization: Bearer <token>`
+
+---
+
+## **Gestión de Reseñas**
+
+### **POST** `/reviews/` - Crear nueva reseña
+- **Descripción:** Crea una nueva reseña y la asocia automáticamente a la película
+- **Autenticación:** Requerida
+- **Permisos:** Usuario autenticado
+- **Headers:** `Authorization: Bearer <token>`
+
+### **GET** `/reviews/` - Obtener todas las reseñas
+- **Descripción:** Lista todas las reseñas con información del usuario y película
+- **Autenticación:** No requerida
+- **Permisos:** Público
+
+### **GET** `/reviews/:id` - Obtener reseña por ID
+- **Descripción:** Obtiene una reseña específica con información completa
+- **Autenticación:** No requerida
+- **Permisos:** Público
+
+### **PUT** `/reviews/:id` - Actualizar reseña
+- **Descripción:** Actualiza una reseña existente
+- **Autenticación:** Requerida
+- **Permisos:** Solo el propietario de la reseña o administrador
+- **Headers:** `Authorization: Bearer <token>`
+- **Body:** Campos a actualizar (rating, comment)
+
+### **DELETE** `/reviews/:id` - Eliminar reseña
+- **Descripción:** Elimina una reseña del sistema
+- **Autenticación:** Requerida
+- **Permisos:** Solo el propietario de la reseña o administrador
+- **Headers:** `Authorization: Bearer <token>`
+
+
 ### Hay dos archivos de Postman, uno para la colección y el otro para el Environment con las variables utilizadas
 ### Tener en cuenta, que si falla un ruta puede ser por varias causas:
 - Que el token no sea válido
