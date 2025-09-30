@@ -1,21 +1,20 @@
 {
 	"info": {
-		"_postman_id": "206537c1-29e4-49cb-96a1-81c163c06ce2",
+		"_postman_id": "abfa5841-cf3f-4e99-bc2d-22a0a83203c3",
 		"name": "MoviesTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "48853190",
-		"_collection_link": "https://juanpapb0401-8817060.postman.co/workspace/Computacion-3's-Workspace~bfabf374-3f9b-4ee3-84af-d86d1c3a8464/collection/48853190-206537c1-29e4-49cb-96a1-81c163c06ce2?action=share&source=collection_link&creator=48853190"
+		"_exporter_id": "48854536"
 	},
 	"item": [
 		{
-			"name": "Login User",
+			"name": "Login Admin",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
 							"let response = pm.response.json();\r",
-							"pm.environment.set(\"token\", response.token);\r",
+							"pm.environment.set(\"token_admin\", response.token);\r",
 							""
 						],
 						"type": "text/javascript",
@@ -64,14 +63,7 @@
 			"name": "Create User",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5YzU0ZTViYmUyOTM1NTE4MWZkYTYiLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MTA0NTY5LCJleHAiOjE3NTkxMDgxNjl9.mchCEkP54Dr33ZZwGRfHWRAjTdr_K2B2OcRjVE1rqdU",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [
@@ -79,11 +71,16 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin}}",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Usuario para Delete 2\",\r\n  \"email\": \"usuarioDelete2@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}",
+					"raw": "{\r\n  \"name\": \"Usuario para Delete 22\",\r\n  \"email\": \"usuarioDelete22@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -106,19 +103,67 @@
 			"response": []
 		},
 		{
-			"name": "Update User",
+			"name": "Create User Alternative",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5YzU0ZTViYmUyOTM1NTE4MWZkYTYiLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MTAyMzExLCJleHAiOjE3NTkxMDU5MTF9.PE286PdwPzsNu5yHuB1SVJ25P6m6ekr4gZCeueP2kgs",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
-				"method": "PUT",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Usuario alternativo\",\r\n  \"email\": \"usuarioAlternativo@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.environment.set(\"token_user\", response.token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -128,10 +173,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\":\"Delete changed 1\",\r\n  \"email\": \"usuarioDelete1@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}"
+					"raw": "{\r\n  \"email\": \"usuarioDelete22@ejemplo.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/user/{{correo}}",
+					"raw": "{{base_url}}/api/v1/user/login",
 					"host": [
 						"{{base_url}}"
 					],
@@ -139,22 +189,31 @@
 						"api",
 						"v1",
 						"user",
-						"{{correo}}"
+						"login"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Profile",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Login User Alternative",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.environment.set(\"token_user_alt\", response.token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
-				"auth": {
-					"type": "bearer"
-				},
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -164,40 +223,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/user/{{correo_profile}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"user",
-						"{{correo_profile}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete User",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ5YzU0ZTViYmUyOTM1NTE4MWZkYTYiLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MTA0NTY5LCJleHAiOjE3NTkxMDgxNjl9.mchCEkP54Dr33ZZwGRfHWRAjTdr_K2B2OcRjVE1rqdU",
-							"type": "string"
+					"raw": "{\r\n  \"email\": \"usuarioAlternativo@ejemplo.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
-				"method": "DELETE",
-				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/user/{{correo_delete}}",
+					"raw": "{{base_url}}/api/v1/user/login",
 					"host": [
 						"{{base_url}}"
 					],
@@ -205,7 +239,7 @@
 						"api",
 						"v1",
 						"user",
-						"{{correo_delete}}"
+						"login"
 					]
 				}
 			},
@@ -233,7 +267,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer {{token}}",
+						"value": "Bearer {{token_admin}}",
 						"type": "text"
 					}
 				],
@@ -255,6 +289,93 @@
 						"api",
 						"v1",
 						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 Created\", () => pm.response.code === 201);\r",
+							"const json = pm.response.json();\r",
+							"pm.test(\"Payload has review\", () => json && json.review && json.review._id);\r",
+							"pm.environment.set(\"review_id\", json.review._id);\r",
+							"pm.environment.set(\"review_comment\", json.review.comment);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"movieId\": \"{{movie_id}}\",\r\n  \"rating\": 4,\r\n  \"comment\": \"Muy buena!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/review",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{correo_profile}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{correo_profile}}"
 					]
 				}
 			},
@@ -292,12 +413,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/search/title?title=Avengers",
-					"protocol": "http",
+					"raw": "{{base_url}}/api/v1/movies/search/title?title=Avengers",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -324,12 +443,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/search/genre?genre=Action",
-					"protocol": "http",
+					"raw": "{{base_url}}/api/v1/movies/search/genre?genre=Action",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -348,13 +465,133 @@
 			"response": []
 		},
 		{
-			"name": "Update Movie",
+			"name": "List Review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.code === 200);\r",
+							"const json = pm.response.json();\r",
+							"pm.test(\"Has array of reviews\", () => Array.isArray(json.review));\r",
+							"pm.test(\"Count matches length\", () => json.count === json.review.length);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/review",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Review by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.code === 200);\r",
+							"const json = pm.response.json();\r",
+							"pm.test(\"Review id matches\", () => json.review && json.review._id === pm.environment.get(\"review_id\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/review/{{review_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"{{review_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"change created\",\r\n  \"email\": \"usuarioDelete22@ejemplo.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"user\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{correo}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{correo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Movie Admin",
 			"request": {
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer {{token}}",
+						"value": "Bearer {{token_admin}}",
 						"type": "text"
 					}
 				],
@@ -383,13 +620,321 @@
 			"response": []
 		},
 		{
-			"name": "Delete Movie",
+			"name": "Update Movie User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame - Extended Version\",\r\n  \"description\": \"Extended version with additional scenes and extra material\",\r\n  \"director\": \"Anthony Russo, Joe Russo\",\r\n  \"releaseDate\": \"2019-04-26\",\r\n  \"genre\": \"Action\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/movies/{{movie_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"{{movie_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Review User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.code === 200);\r",
+							"const json = pm.response.json();\r",
+							"pm.test(\"Updated fields\", () => json.review && json.review.rating === 5 && json.review.comment.includes(\"cambio\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rating\": 5,\r\n  \"comment\": \"Excelente, cambio de opinión!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/review/{{review_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"{{review_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Review Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.code === 200);\r",
+							"const json = pm.response.json();\r",
+							"pm.test(\"Updated fields\", () => json.review && json.review.rating === 5 && json.review.comment.includes(\"cambio\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rating\": 5,\r\n  \"comment\": \"Excelente, cambio de opinión! - admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/review/{{review_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"{{review_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Review Alternative User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"  pm.test(\"403 Forbidden\", () => pm.response.code === 403);\r",
+							"  const json = pm.response.json();\r",
+							"  pm.test(\"Ownership message\", () => (json.message || \"\").toLowerCase().includes(\"only update your own reviews\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user_alt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"rating\": 1,\r\n    \"comment\": \"Intento de otro usuario\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/review/{{review_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"{{review_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Review Alternative User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"  pm.test(\"403 Forbidden\", () => pm.response.code === 403);\r",
+							"  const json = pm.response.json();\r",
+							"  pm.test(\"Ownership message\", () => (json.message || \"\").toLowerCase().includes(\"only delete your own reviews\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer {{token}}",
+						"value": "Bearer {{token_user_alt}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/review/{{review_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"{{review_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Review Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.code === 200);\r",
+							"const json = pm.response.json();\r",
+							"pm.test(\"Deleted message\", () => json.message && json.message.toLowerCase().includes(\"deleted\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_admin}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/review/{{review_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"{{review_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Review User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.code === 200);\r",
+							"const json = pm.response.json();\r",
+							"pm.test(\"Deleted message\", () => json.message && json.message.toLowerCase().includes(\"deleted\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/review/{{review_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"{{review_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Movie User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_user}}",
 						"type": "text"
 					}
 				],
@@ -409,71 +954,55 @@
 			"response": []
 		},
 		{
-			"name": "Create Review",
+			"name": "Delete Movie Admin",
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer {{token}}",
-						"type": "text"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+						"value": "Bearer {{token_admin}}",
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"movieId\": \"68dadc351a70397d8038cab5\",\r\n    \"userId\": \"68d9c54e5bbe29355181fda6\",\r\n    \"rating\": 5,\r\n    \"comment\": \"Una de las mejores películas que he visto este año\"\r\n}"
-				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/review",
+					"raw": "{{base_url}}/api/v1/movies/{{movie_id}}",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"review"
+						"movies",
+						"{{movie_id}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get All Reviews",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Delete User",
 			"request": {
-				"method": "GET",
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer {{token}}",
-						"type": "text"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+						"value": "Bearer {{token_admin}}",
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/review",
+					"raw": "{{base_url}}/api/v1/user/{{correo_delete}}",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"review"
+						"user",
+						"{{correo_delete}}"
 					]
 				}
 			},
