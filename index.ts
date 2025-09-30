@@ -18,7 +18,7 @@ const app: Express = express();
 const port: number = parseInt(process.env.PORT || "8080");
 
 // Middleware
-app.use(express.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Rutas
@@ -28,7 +28,7 @@ app.use('/api/v1/user', userRouter);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
-    res.json({ 
+    res.json({
         message: 'API de Películas funcionando',
         version: '1.0.0',
         endpoints: {
@@ -52,5 +52,6 @@ const startServer = async () => {
         process.exit(1);
     }
 };
+
 
 startServer();

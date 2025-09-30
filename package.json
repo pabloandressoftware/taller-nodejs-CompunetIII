@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsc && bun run dist/index.js",
     "test": "bun jest",
-    "test:watch": "bun jest --watch", 
+    "test:watch": "bun jest --watch",
     "test:coverage": "bun jest --coverage"
   },
   "devDependencies": {
