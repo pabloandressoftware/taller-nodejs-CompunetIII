@@ -1,5 +1,5 @@
 ### Proyecto desplegado: 
-https://taller-nodejs-compunet-iii-one.vercel.app/
+https://taller-nodejs-pabloguzman.vercel.app/
 
 # API RESTful de Gestión de Películas y Reseñas
 
